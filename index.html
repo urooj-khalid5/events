@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events</title>
+</head>
+
+<body>
+    <script src="./event.js"></script>
+    <h3>Sign-up Form</h3>
+    <form onsubmit="event.preventDefault(); Displayinfo();">
+        Email:
+        <input type="email" id="email" name="email">
+
+        <br>
+        <br>
+        Password:
+        <input type="password" id="password" name="password">
+
+        <br>
+        <br>
+        Contact#:
+        <input type="number" id="number" name="number">
+        <br>
+        <br>
+        <input type="submit" value="Submit">
+    </form>
+    <h2>FORM DATA: </h2>
+    <div id="formdisplay"></div>
+    <h3>items details</h3>
+    <p id="expand">
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Earum doloremque, architecto quae suscipit illo autem
+        blanditiis, dolorem ad, laudantium dicta neque reprehenderit saepe. Tempore laborum dolor perferendis ipsum
+        tenetur vitae quisquam nihil, accusantium ea architecto vero, illum fugiat molestiae voluptatem ipsam. Officia
+        earum corporis aliquam blanditiis eum suscipit, maiores quod facere repellat perferendis qui quibusdam.
+        <a href="javascript:void(0);" onClick="expanditem();"><em>Read more.</em></a>
+    </p>
+
+ <h2>Student Details</h2>
+
+  <form id="studentForm">
+    <label for="firstName">First Name:</label>
+    <input type="text" id="firstName" required><br><br>
+    
+    <label for="lastName">Last Name:</label>
+    <input type="text" id="lastName" required><br><br>
+    
+    <label for="age">Age:</label>
+    <input type="number" id="age" required><br><br>
+    
+    <input type="submit" value="Add Student">
+  </form>
+
+  <br><br>
+
+  <table id="studentTable">
+    <tr>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Age</th>
+      <th>Edit</th>
+      <th>Delete</th>
+    </tr>
+  </table>
+  <script>
+    document.getElementById("studentForm").addEventListener("submit", function(event) {
+  event.preventDefault();
+  // This line attaches an event listener to the form with the id "studentForm" for the submit event.
+
+  var firstName = document.getElementById("firstName").value;
+  var lastName = document.getElementById("lastName").value;
+  var age = document.getElementById("age").value;
+  // These lines retrieve the values of the input fields with the corresponding ids.
+
+  var newRow = document.getElementById("studentTable").insertRow();
+  // This line retrieves the table element with the id "studentTable" and inserts a new row at the end.
+
+  newRow.insertCell().textContent = firstName;
+  newRow.insertCell().textContent = lastName;
+  newRow.insertCell().textContent = age;
+  // These lines insert cells into the newly created row and set their text content to the corresponding values.
+
+  newRow.insertCell().innerHTML = '<button onclick="editStudent(this)">Edit</button>';
+  newRow.insertCell().innerHTML = '<button onclick="deleteStudent(this)">Delete</button>';
+  // These lines insert cells into the row and set their inner HTML to include edit and delete buttons.
+  
+  document.getElementById("studentForm").reset();
+  // This line resets the form input fields to their default values.
+});
+
+function editStudent(button) {
+  var row = button.parentNode.parentNode;
+  // This line retrieves the parent row of the button that was clicked.
+
+  var firstName = row.cells[0].textContent;
+  var lastName = row.cells[1].textContent;
+  var age = row.cells[2].textContent;
+  // These lines retrieve the text content of the cells in the row, representing the student details.
+
+  document.getElementById("firstName").value = firstName;
+  document.getElementById("lastName").value = lastName;
+  document.getElementById("age").value = age;
+  // These lines set the values of the input fields to the retrieved student details.
+}
+
+function deleteStudent(button) {
+  var row = button.parentNode.parentNode;
+  // This line retrieves the parent row of the button that was clicked.
+
+  row.parentNode.removeChild(row);
+  // This line removes the row from its parent, effectively deleting it from the table.
+}
+
+  </script>
+
+
+
+
+</body>
+
+</html>
